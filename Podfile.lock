@@ -2,6 +2,7 @@ PODS:
   - Alamofire (5.0.0-beta.6)
   - BubbleTransition (3.2.0)
   - EZSwipeController (0.6.1)
+  - InAppSettingsKit (2.14)
   - Koloda (5.0):
     - pop (~> 1.0)
   - LTMorphingLabel (0.7.0)
@@ -12,6 +13,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.0.0-beta.5)
   - BubbleTransition (~> 3.2.0)
   - EZSwipeController
+  - InAppSettingsKit
   - Koloda
   - LTMorphingLabel
   - SnapKit (~> 5.0.0)
@@ -21,6 +23,7 @@ SPEC REPOS:
     - Alamofire
     - BubbleTransition
     - EZSwipeController
+    - InAppSettingsKit
     - Koloda
     - LTMorphingLabel
     - pop
@@ -30,11 +33,12 @@ SPEC CHECKSUMS:
   Alamofire: cd08a4402bd12cacd0c66f23fb12fec8d6b965e4
   BubbleTransition: 2f112cc19772d9ab199bc850de92f5eb34744bce
   EZSwipeController: 255b0f8aed31963b0236802c926e27dd006a2532
+  InAppSettingsKit: 800853da39388780c15191846688c0974c5b13b5
   Koloda: 75302d21882cc3e274c1561b1155805ea5919dab
   LTMorphingLabel: 22147fb1ec2b0306537ccc348b36ea8617179b03
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
 
-PODFILE CHECKSUM: d6db2c54b65b6f7b23d06541efcfdae5e465ca2f
+PODFILE CHECKSUM: e699beba03150cf259107adbe36f073deb57ae68
 
 COCOAPODS: 1.7.0

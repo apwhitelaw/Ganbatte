@@ -103,150 +103,192 @@ class SubjectItemViewController: UIViewController {
             readingHintText = readingHint
         }
         
-        let meaningSeparator = BarSeparatorView(title: "Meaning:")
-        meaningSeparator.backgroundColor = barColor
-        scroll.addSubview(meaningSeparator)
-        scrollSize += 30
-        meaningSeparator.snp.makeConstraints { (make) in
-            make.centerX.equalTo(scroll)
-            make.width.equalTo(scroll).multipliedBy(0.95)
-            make.height.equalTo(30)
-        }
-        viewArray.append(meaningSeparator)
-        
-        meaningLabel.numberOfLines = 0
-        meaningLabel.lineBreakMode = .byWordWrapping
-        meaningLabel.textAlignment = .center
-        meaningLabel.isHidden = false
-        meaningLabel.text = meaningText
-        scroll.addSubview(meaningLabel)
-        scrollSize += meaningLabel.text?.height(withConstrainedWidth: meaningLabel.frame.width, font: .systemFont(ofSize: 18)) ?? 0
-        meaningLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(scroll)
-            //make.top.equalTo(meaningSeparator.snp.bottom).offset(20)
-            make.width.equalTo(scroll).multipliedBy(0.90)
-        }
-        viewArray.append(meaningLabel)
-        
-        if readingText != "" {
-            let readingSeparator = BarSeparatorView(title: "Reading:")
-            readingSeparator.backgroundColor = barColor
-            scroll.addSubview(readingSeparator)
+        if meaning == nil || meaning == true {
+            let meaningSeparator = BarSeparatorView(title: "Meaning:")
+            meaningSeparator.backgroundColor = barColor
+            scroll.addSubview(meaningSeparator)
             scrollSize += 30
-            readingSeparator.snp.makeConstraints { (make) in
+            meaningSeparator.snp.makeConstraints { (make) in
                 make.centerX.equalTo(scroll)
                 make.width.equalTo(scroll).multipliedBy(0.95)
                 make.height.equalTo(30)
-                //make.top.equalTo(meaningLabel.snp.bottom).offset(20)
             }
-            viewArray.append(readingSeparator)
+            viewArray.append(meaningSeparator)
             
-            readingLabel.isHidden = false
-            readingLabel.text = readingText
-            readingLabel.textAlignment = .center
-            scroll.addSubview(readingLabel)
-            scrollSize += readingLabel.text?.height(withConstrainedWidth: readingLabel.frame.width, font: .systemFont(ofSize: 18)) ?? 0
-            readingLabel.snp.makeConstraints { (make) in
+            meaningLabel.numberOfLines = 0
+            meaningLabel.lineBreakMode = .byWordWrapping
+            meaningLabel.textAlignment = .center
+            meaningLabel.isHidden = false
+            meaningLabel.text = meaningText
+            scroll.addSubview(meaningLabel)
+            scrollSize += meaningLabel.text?.height(withConstrainedWidth: meaningLabel.frame.width, font: .systemFont(ofSize: 18)) ?? 0
+            meaningLabel.snp.makeConstraints { (make) in
                 make.centerX.equalTo(scroll)
+                //make.top.equalTo(meaningSeparator.snp.bottom).offset(20)
                 make.width.equalTo(scroll).multipliedBy(0.90)
             }
-            viewArray.append(readingLabel)
+            viewArray.append(meaningLabel)
         }
         
-        if meaningMnemonicText != "" {
-            let meaningMnemonicSeparator = BarSeparatorView(title: "Meaning Mnemonic:")
-            meaningMnemonicSeparator.backgroundColor = barColor
-            scroll.addSubview(meaningMnemonicSeparator)
+        if meaning == nil || meaning == false {
+            if readingText != "" {
+                let readingSeparator = BarSeparatorView(title: "Reading:")
+                readingSeparator.backgroundColor = barColor
+                scroll.addSubview(readingSeparator)
+                scrollSize += 30
+                readingSeparator.snp.makeConstraints { (make) in
+                    make.centerX.equalTo(scroll)
+                    make.width.equalTo(scroll).multipliedBy(0.95)
+                    make.height.equalTo(30)
+                    //make.top.equalTo(meaningLabel.snp.bottom).offset(20)
+                }
+                viewArray.append(readingSeparator)
+                
+                readingLabel.isHidden = false
+                readingLabel.text = readingText
+                readingLabel.textAlignment = .center
+                scroll.addSubview(readingLabel)
+                scrollSize += readingLabel.text?.height(withConstrainedWidth: readingLabel.frame.width, font: .systemFont(ofSize: 18)) ?? 0
+                readingLabel.snp.makeConstraints { (make) in
+                    make.centerX.equalTo(scroll)
+                    make.width.equalTo(scroll).multipliedBy(0.90)
+                }
+                viewArray.append(readingLabel)
+            }
+        }
+        
+        if let components = subjectItem1.data.componentSubjectIds {
+            
+            let componentSeparator = BarSeparatorView(title: "Components:")
+            if subjectItem1.object == "kanji" {
+                componentSeparator.titleLabel.text = "Radicals:"
+                componentSeparator.backgroundColor = .wkBlue
+            } else if subjectItem1.object == "vocabulary" {
+                componentSeparator.titleLabel.text = "Kanji:"
+                componentSeparator.backgroundColor = .wkPink
+            }
+            scroll.addSubview(componentSeparator)
             scrollSize += 30
-            meaningMnemonicSeparator.snp.makeConstraints { (make) in
+            componentSeparator.snp.makeConstraints { (make) in
                 make.centerX.equalTo(scroll)
                 make.width.equalTo(scroll).multipliedBy(0.95)
                 make.height.equalTo(30)
             }
-            viewArray.append(meaningMnemonicSeparator)
+            viewArray.append(componentSeparator)
             
-            let meaningMnemonicView = SizeableTextView(text: insertTextHighlighting(text: meaningMnemonicText))
-            scroll.addSubview(meaningMnemonicView)
-            let height = meaningMnemonicView.labelHeight
+            let radicals = subjectItem1.object == "radical" ? true : false
+            let componentView = ComponentView(components: components, radicals: radicals)
+            componentView.backgroundColor = .white
+            scroll.addSubview(componentView)
+            let height: CGFloat = 0
             scrollSize += height
-            meaningMnemonicView.snp.makeConstraints { (make) in
+            componentView.snp.makeConstraints { (make) in
                 make.centerX.equalTo(scroll)
                 make.width.equalTo(scroll).multipliedBy(0.90)
-                make.height.equalTo(height) //(height * 1.2)
+                make.height.equalTo(componentView.height) //(height * 1.2)
             }
-            viewArray.append(meaningMnemonicView)
+            viewArray.append(componentView)
+            componentView.setupViews()
         }
         
-        if meaningHintText != "" {
-            let meaningHintSeparator = BarSeparatorView(title: "Meaning Hint:")
-            meaningHintSeparator.backgroundColor = barColor
-            scroll.addSubview(meaningHintSeparator)
-            scrollSize += 30
-            meaningHintSeparator.snp.makeConstraints { (make) in
-                make.centerX.equalTo(scroll)
-                make.width.equalTo(scroll).multipliedBy(0.95)
-                make.height.equalTo(30)
+        if meaning == nil || meaning == true {
+            if meaningMnemonicText != "" {
+                let meaningMnemonicSeparator = BarSeparatorView(title: "Meaning Mnemonic:")
+                meaningMnemonicSeparator.backgroundColor = barColor
+                scroll.addSubview(meaningMnemonicSeparator)
+                scrollSize += 30
+                meaningMnemonicSeparator.snp.makeConstraints { (make) in
+                    make.centerX.equalTo(scroll)
+                    make.width.equalTo(scroll).multipliedBy(0.95)
+                    make.height.equalTo(30)
+                }
+                viewArray.append(meaningMnemonicSeparator)
+                
+                let meaningMnemonicView = SizeableTextView(text: insertTextHighlighting(text: meaningMnemonicText))
+                scroll.addSubview(meaningMnemonicView)
+                let height = meaningMnemonicView.labelHeight
+                scrollSize += height
+                meaningMnemonicView.snp.makeConstraints { (make) in
+                    make.centerX.equalTo(scroll)
+                    make.width.equalTo(scroll).multipliedBy(0.90)
+                    make.height.equalTo(height) //(height * 1.2)
+                }
+                viewArray.append(meaningMnemonicView)
             }
-            viewArray.append(meaningHintSeparator)
             
-            let meaningHintView = SizeableTextView(text: insertTextHighlighting(text:meaningHintText))
-            scroll.addSubview(meaningHintView)
-            let height = meaningHintView.labelHeight
-            scrollSize += height
-            meaningHintView.snp.makeConstraints { (make) in
-                make.centerX.equalTo(scroll)
-                make.width.equalTo(scroll).multipliedBy(0.90)
-                make.height.equalTo(height * 1.2)
+            if meaningHintText != "" {
+                let meaningHintSeparator = BarSeparatorView(title: "Meaning Hint:")
+                meaningHintSeparator.backgroundColor = barColor
+                scroll.addSubview(meaningHintSeparator)
+                scrollSize += 30
+                meaningHintSeparator.snp.makeConstraints { (make) in
+                    make.centerX.equalTo(scroll)
+                    make.width.equalTo(scroll).multipliedBy(0.95)
+                    make.height.equalTo(30)
+                }
+                viewArray.append(meaningHintSeparator)
+                
+                let meaningHintView = SizeableTextView(text: insertTextHighlighting(text:meaningHintText))
+                scroll.addSubview(meaningHintView)
+                let height = meaningHintView.labelHeight
+                scrollSize += height
+                meaningHintView.snp.makeConstraints { (make) in
+                    make.centerX.equalTo(scroll)
+                    make.width.equalTo(scroll).multipliedBy(0.90)
+                    make.height.equalTo(height * 1.2)
+                }
+                viewArray.append(meaningHintView)
             }
-            viewArray.append(meaningHintView)
         }
         
-        if readingMnemonicText != "" {
-            let readingMnemonicSeparator = BarSeparatorView(title: "Reading Mnemonic:")
-            readingMnemonicSeparator.backgroundColor = barColor
-            scroll.addSubview(readingMnemonicSeparator)
-            scrollSize += 30
-            readingMnemonicSeparator.snp.makeConstraints { (make) in
-                make.centerX.equalTo(scroll)
-                make.width.equalTo(scroll).multipliedBy(0.95)
-                make.height.equalTo(30)
+        if meaning == nil || meaning == false {
+            if readingMnemonicText != "" {
+                let readingMnemonicSeparator = BarSeparatorView(title: "Reading Mnemonic:")
+                readingMnemonicSeparator.backgroundColor = barColor
+                scroll.addSubview(readingMnemonicSeparator)
+                scrollSize += 30
+                readingMnemonicSeparator.snp.makeConstraints { (make) in
+                    make.centerX.equalTo(scroll)
+                    make.width.equalTo(scroll).multipliedBy(0.95)
+                    make.height.equalTo(30)
+                }
+                viewArray.append(readingMnemonicSeparator)
+                
+                let readingMnemonicView = SizeableTextView(text: insertTextHighlighting(text:readingMnemonicText))
+                scroll.addSubview(readingMnemonicView)
+                let height = readingMnemonicView.labelHeight
+                scrollSize += height
+                readingMnemonicView.snp.makeConstraints { (make) in
+                    make.centerX.equalTo(scroll)
+                    make.width.equalTo(scroll).multipliedBy(0.90)
+                    make.height.equalTo(height * 1.2)
+                }
+                viewArray.append(readingMnemonicView)
             }
-            viewArray.append(readingMnemonicSeparator)
             
-            let readingMnemonicView = SizeableTextView(text: insertTextHighlighting(text:readingMnemonicText))
-            scroll.addSubview(readingMnemonicView)
-            let height = readingMnemonicView.labelHeight
-            scrollSize += height
-            readingMnemonicView.snp.makeConstraints { (make) in
-                make.centerX.equalTo(scroll)
-                make.width.equalTo(scroll).multipliedBy(0.90)
-                make.height.equalTo(height * 1.2)
+            if readingHintText != "" {
+                let readingHintSeparator = BarSeparatorView(title: "Reading Hint:")
+                readingHintSeparator.backgroundColor = barColor
+                scroll.addSubview(readingHintSeparator)
+                scrollSize += 30
+                readingHintSeparator.snp.makeConstraints { (make) in
+                    make.centerX.equalTo(scroll)
+                    make.width.equalTo(scroll).multipliedBy(0.95)
+                    make.height.equalTo(30)
+                }
+                viewArray.append(readingHintSeparator)
+                
+                let readingHintView = SizeableTextView(text: insertTextHighlighting(text:readingHintText))
+                scroll.addSubview(readingHintView)
+                let height = readingHintView.labelHeight
+                scrollSize += height
+                readingHintView.snp.makeConstraints { (make) in
+                    make.centerX.equalTo(scroll)
+                    make.width.equalTo(scroll).multipliedBy(0.90)
+                    make.height.equalTo(height * 1.2)
+                }
+                viewArray.append(readingHintView)
             }
-            viewArray.append(readingMnemonicView)
-        }
-        
-        if readingHintText != "" {
-            let readingHintSeparator = BarSeparatorView(title: "Reading Hint:")
-            readingHintSeparator.backgroundColor = barColor
-            scroll.addSubview(readingHintSeparator)
-            scrollSize += 30
-            readingHintSeparator.snp.makeConstraints { (make) in
-                make.centerX.equalTo(scroll)
-                make.width.equalTo(scroll).multipliedBy(0.95)
-                make.height.equalTo(30)
-            }
-            viewArray.append(readingHintSeparator)
-            
-            let readingHintView = SizeableTextView(text: insertTextHighlighting(text:readingHintText))
-            scroll.addSubview(readingHintView)
-            let height = readingHintView.labelHeight
-            scrollSize += height
-            readingHintView.snp.makeConstraints { (make) in
-                make.centerX.equalTo(scroll)
-                make.width.equalTo(scroll).multipliedBy(0.90)
-                make.height.equalTo(height * 1.2)
-            }
-            viewArray.append(readingHintView)
         }
         
         for (index, view) in viewArray.enumerated() {

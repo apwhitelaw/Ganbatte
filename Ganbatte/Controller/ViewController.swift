@@ -10,6 +10,10 @@ import UIKit
 import SnapKit
 import Alamofire
 
+var allRadicalArray: [SubjectItem2] = []
+var allKanjiArray: [SubjectItem2] = []
+var allVocabArray: [SubjectItem2] = []
+
 class ViewController: UIViewController {
     
     //let apiUrl: String = "https://api.wanikani.com/v2/assignments?available_before="
@@ -18,12 +22,14 @@ class ViewController: UIViewController {
     
     let scroll = UIScrollView()
     
+    
+    var lessonView: UIView = UIView()
+    var reviewView: UIView = UIView()
     let lessonsLabel: UILabel = {
         let l = UILabel()
         l.text = "Lessons: 0"
         return l
     }()
-    
     let reviewsLabel: UILabel = {
         let l = UILabel()
         l.text = "Reviews: 0"
@@ -33,16 +39,14 @@ class ViewController: UIViewController {
     var username = ""
     var level = 0
     
-    var nowDate = Date()
+    var lastUpdated = Date()
     var lessonsAvailable: Int = 0
     var reviewsAvailable: Int = 0
     var lessonsArray: [SubjectItem] = []
     var reviewsArray: [SubjectItem] = []
     
     var allItemsArray: [SubjectItem2] = []
-    var allRadicalArray: [SubjectItem2] = []
-    var allKanjiArray: [SubjectItem2] = []
-    var allVocabArray: [SubjectItem2] = []
+    
     var reviewIds: [Int] = []
     var lessonIds: [Int] = []
     var reviewsArray1: [SubjectItem2] = []
@@ -66,9 +70,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         DispatchQueue.global(qos: .userInteractive).async {
-            self.loadSubjects()
+            if allRadicalArray.count == 0 {
+                self.loadSubjects()
+            }
             self.sendRequests()
         }
     }
@@ -76,13 +84,13 @@ class ViewController: UIViewController {
     func loadSubjects() {
         
          // TODO: IF LOAD FAILS, RUN DOWNLOAD AND SAVE
+        
     //if FileManager().fileExists(atPath: getDocumentsDirectory().appendingPathComponent("radical").absoluteString) {
         if true {
             print("Loading Subject Data...")
             allRadicalArray = loadSubjectsFromFile(subjectType: SubjectItem2.self, fileName: "radical")
             allKanjiArray = loadSubjectsFromFile(subjectType: SubjectItem2.self, fileName: "kanji")
             allVocabArray = loadSubjectsFromFile(subjectType: SubjectItem2.self, fileName: "vocab")
-            
         } else {
             print("Downloading All Subjects And Saving...")
             getAllSubjectsAndSave()
@@ -281,6 +289,13 @@ class ViewController: UIViewController {
         
         view.backgroundColor = .wkBlue
         
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor.wkGreen.cgColor, UIColor.black.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.25)
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        
         let settingsButton = UIButton()
         //settingsButton.setTitle("Settings", for: .normal)
         settingsButton.setImage(UIImage(named: "settings.png"), for: .normal)
@@ -312,14 +327,12 @@ class ViewController: UIViewController {
             make.trailing.equalTo(view.snp.trailing).offset(-25)
         }
         
-        let lessonView = UIView()
-        lessonView.backgroundColor = .white
+        lessonView.backgroundColor = lessonsArray1.count > 0 ? .white : UIColor(red: 191.25/255, green: 191.25/255, blue: 191.25/255, alpha: 1.0)
         lessonView.isUserInteractionEnabled = true
         let lessonTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(beginLessons))
         lessonView.addGestureRecognizer(lessonTapRecognizer)
         
-        let reviewView = UIView()
-        reviewView.backgroundColor = .white
+        reviewView.backgroundColor = lessonsArray1.count > 0 ? .white : UIColor(red: 191.25/255, green: 191.25/255, blue: 191.25/255, alpha: 1.0)
         reviewView.isUserInteractionEnabled = true
         let reviewTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(beginReviews))
         reviewView.addGestureRecognizer(reviewTapRecognizer)
@@ -372,7 +385,7 @@ class ViewController: UIViewController {
     }
     
     @objc func openSettings() {
-        let vc = SettingsViewController()
+        let vc = SettingsTableViewController() //SettingsViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -387,15 +400,19 @@ class ViewController: UIViewController {
     
     @objc func beginReviews() {
         let vc = ReviewViewController(reviewsArray1: reviewsArray1)
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true) {
-
-        }
+//        vc.modalPresentationStyle = .fullScreen
+//        present(vc, animated: true) {
+//
+//        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func updateLabels() {
         lessonsLabel.text = "Lessons: \(lessonsArray1.count)"
         reviewsLabel.text = "Reviews: \(reviewsArray1.count)"
+        
+        lessonView.backgroundColor = lessonsArray1.count > 0 ? .white : UIColor(red: 127.5/255, green: 127.5/255, blue: 127.5/255, alpha: 1.0)
+        reviewView.backgroundColor = lessonsArray1.count > 0 ? .white : UIColor(red: 127.5/255, green: 127.5/255, blue: 127.5/255, alpha: 1.0)
     }
     
     func sendRequests() {
@@ -407,6 +424,7 @@ class ViewController: UIViewController {
             
             AF.request(request).responseJSON { response in
                 if let jsonDict = response.value as? [String: Any] {
+                    print(jsonDict["data_updated_at"])
                     if let data = jsonDict["data"] as? [String: Any] {
                         if let lessons = data["lessons"] as? [[String: Any]] {
                             self.setupLessons(lessons: lessons)
@@ -437,6 +455,7 @@ class ViewController: UIViewController {
     }
     
     func setupLessons(lessons: [[String: Any]]) {
+        lessonsArray1 = []
         let lessonSet = lessons[0]
         if let currentLessons = lessonSet["subject_ids"] as? [Int] {
             
@@ -450,6 +469,7 @@ class ViewController: UIViewController {
     }
     
     func setupReviews(reviews: [[String: Any]]) {
+        reviewsArray1 = []
         let reviewSet = reviews[0] // 0 = most recent hour, 1 = upcoming hour, etc.
         if let currentReviews = reviewSet["subject_ids"] as? [Int] {
             

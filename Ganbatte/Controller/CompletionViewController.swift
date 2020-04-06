@@ -51,11 +51,20 @@ class CompletionViewController: UICollectionViewController, UICollectionViewDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.setHidesBackButton(true, animated: false)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(returnToHome))
+        navigationItem.setRightBarButton(doneButton, animated: false)
+        
         collectionView.backgroundColor =  UIColor(red: 242/255, green: 242/255, blue: 247/255, alpha: 1.0) //.wkGreen
         
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView!.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
+    }
+    
+    @objc func returnToHome() {
+        navigationController?.popToRootViewController(animated: true)
     }
 
     // MARK: UICollectionViewDataSource
@@ -101,7 +110,6 @@ class CompletionViewController: UICollectionViewController, UICollectionViewDele
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        cell.backgroundColor = .wkBlue
         cell.layer.cornerRadius = 5
         var cellItem: SubjectItem2
         if(indexPath.section == 1) {
@@ -109,6 +117,12 @@ class CompletionViewController: UICollectionViewController, UICollectionViewDele
         } else {
             // if any issues, originally said: else if (indexPath.section == 2)
             cellItem = correctArray[indexPath.row]
+        }
+        switch(cellItem.object) {
+        case "radical": cell.backgroundColor = .wkBlue
+        case "kanji": cell.backgroundColor = .wkPink
+        case "vocabulary": cell.backgroundColor = .wkPurple
+        default: cell.backgroundColor = .white
         }
         let label = UILabel()
         if let text = cellItem.data.characters {

@@ -15,14 +15,22 @@
 		D9265A8122FBE1F700ADE98D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9265A8022FBE1F700ADE98D /* ViewController.swift */; };
 		D9265A8622FBE1FA00ADE98D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9265A8522FBE1FA00ADE98D /* Assets.xcassets */; };
 		D9265A8922FBE1FA00ADE98D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9265A8722FBE1FA00ADE98D /* LaunchScreen.storyboard */; };
+		D93BD0AC243AF24A002F4157 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93BD0AB243AF24A002F4157 /* SetupViewController.swift */; };
 		D9605FED230002CE00D206E5 /* SubjectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9605FEC230002CE00D206E5 /* SubjectItem.swift */; };
 		D9782F98230E72220092B5EE /* WaniKaniDataItems+More.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9782F97230E72220092B5EE /* WaniKaniDataItems+More.swift */; };
 		D978ABA023D6CDC80027236B /* SettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D978AB9F23D6CDC80027236B /* SettingsSection.swift */; };
 		D99E21AB23D9F525007F17C3 /* RelatedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99E21AA23D9F525007F17C3 /* RelatedItemsView.swift */; };
 		D9BD7FB623C3874000C701FC /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BD7FB523C3873F00C701FC /* settings.png */; };
 		D9BD7FB823C3892C00C701FC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD7FB723C3892C00C701FC /* SettingsViewController.swift */; };
+		D9E5CA6C2438E94B00936734 /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D9E5CA6B2438E94B00936734 /* InAppSettings.bundle */; };
+		D9E5CA702438EA8300936734 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E5CA6F2438EA8300936734 /* SettingsTableViewController.swift */; };
+		D9E5CA7224399E6D00936734 /* ReviewProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E5CA7124399E6D00936734 /* ReviewProgressView.swift */; };
+		D9E5CA752439A68100936734 /* inbox.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E5CA732439A68100936734 /* inbox.png */; };
+		D9E5CA762439A68100936734 /* complete.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E5CA742439A68100936734 /* complete.png */; };
+		D9E5CA782439B8AD00936734 /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E5CA772439B8AD00936734 /* clock.png */; };
 		D9FA720223176829000FE229 /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA720123176829000FE229 /* CompletionViewController.swift */; };
 		D9FA72042318A940000FE229 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA72032318A940000FE229 /* Logo.png */; };
+		D9FB6CBD2437092400423D3F /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FB6CBC2437092400423D3F /* ComponentView.swift */; };
 		D9FB9C2D23D6ABD300AB5634 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FB9C2C23D6ABD300AB5634 /* SectionHeaderView.swift */; };
 		D9FB9C2F23D6AC1000AB5634 /* SizeableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FB9C2E23D6AC1000AB5634 /* SizeableTextView.swift */; };
 		D9FB9C3123D6AC2E00AB5634 /* BarSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FB9C3023D6AC2E00AB5634 /* BarSeparatorView.swift */; };
@@ -43,14 +51,22 @@
 		D9265A8522FBE1FA00ADE98D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9265A8822FBE1FA00ADE98D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D9265A8A22FBE1FA00ADE98D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D93BD0AB243AF24A002F4157 /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		D9605FEC230002CE00D206E5 /* SubjectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectItem.swift; sourceTree = "<group>"; };
 		D9782F97230E72220092B5EE /* WaniKaniDataItems+More.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WaniKaniDataItems+More.swift"; sourceTree = "<group>"; };
 		D978AB9F23D6CDC80027236B /* SettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSection.swift; sourceTree = "<group>"; };
 		D99E21AA23D9F525007F17C3 /* RelatedItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedItemsView.swift; sourceTree = "<group>"; };
 		D9BD7FB523C3873F00C701FC /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		D9BD7FB723C3892C00C701FC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		D9E5CA6B2438E94B00936734 /* InAppSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = InAppSettings.bundle; sourceTree = "<group>"; };
+		D9E5CA6F2438EA8300936734 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		D9E5CA7124399E6D00936734 /* ReviewProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewProgressView.swift; sourceTree = "<group>"; };
+		D9E5CA732439A68100936734 /* inbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inbox.png; sourceTree = "<group>"; };
+		D9E5CA742439A68100936734 /* complete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = complete.png; sourceTree = "<group>"; };
+		D9E5CA772439B8AD00936734 /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
 		D9FA720123176829000FE229 /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
 		D9FA72032318A940000FE229 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
+		D9FB6CBC2437092400423D3F /* ComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
 		D9FB9C2C23D6ABD300AB5634 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		D9FB9C2E23D6AC1000AB5634 /* SizeableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeableTextView.swift; sourceTree = "<group>"; };
 		D9FB9C3023D6AC2E00AB5634 /* BarSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarSeparatorView.swift; sourceTree = "<group>"; };
@@ -118,7 +134,11 @@
 				D9265A8722FBE1FA00ADE98D /* LaunchScreen.storyboard */,
 				D9265A8A22FBE1FA00ADE98D /* Info.plist */,
 				D9FA72032318A940000FE229 /* Logo.png */,
+				D9E5CA742439A68100936734 /* complete.png */,
+				D9E5CA732439A68100936734 /* inbox.png */,
+				D9E5CA772439B8AD00936734 /* clock.png */,
 				D9BD7FB523C3873F00C701FC /* settings.png */,
+				D9E5CA6B2438E94B00936734 /* InAppSettings.bundle */,
 			);
 			path = Ganbatte;
 			sourceTree = "<group>";
@@ -138,11 +158,13 @@
 			isa = PBXGroup;
 			children = (
 				D9FB9C2C23D6ABD300AB5634 /* SectionHeaderView.swift */,
-				D9FB9C2E23D6AC1000AB5634 /* SizeableTextView.swift */,
 				D9FB9C3023D6AC2E00AB5634 /* BarSeparatorView.swift */,
+				D9FB9C2E23D6AC1000AB5634 /* SizeableTextView.swift */,
+				D9FB6CBC2437092400423D3F /* ComponentView.swift */,
 				D9FB9C3223D6ACBF00AB5634 /* SettingsCell.swift */,
 				D9FB9C3423D6B08600AB5634 /* UserInfoHeader.swift */,
 				D99E21AA23D9F525007F17C3 /* RelatedItemsView.swift */,
+				D9E5CA7124399E6D00936734 /* ReviewProgressView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -151,11 +173,13 @@
 			isa = PBXGroup;
 			children = (
 				D9265A8022FBE1F700ADE98D /* ViewController.swift */,
+				D93BD0AB243AF24A002F4157 /* SetupViewController.swift */,
 				D920E37F23050B9A00B63D2F /* LessonViewController.swift */,
-				D9BD7FB723C3892C00C701FC /* SettingsViewController.swift */,
 				D920E37D23038B6C00B63D2F /* ReviewViewController.swift */,
 				D920E38123079BA500B63D2F /* SubjectItemViewController.swift */,
 				D9FA720123176829000FE229 /* CompletionViewController.swift */,
+				D9BD7FB723C3892C00C701FC /* SettingsViewController.swift */,
+				D9E5CA6F2438EA8300936734 /* SettingsTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -220,9 +244,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9E5CA782439B8AD00936734 /* clock.png in Resources */,
 				D9BD7FB623C3874000C701FC /* settings.png in Resources */,
 				D9FA72042318A940000FE229 /* Logo.png in Resources */,
+				D9E5CA762439A68100936734 /* complete.png in Resources */,
+				D9E5CA752439A68100936734 /* inbox.png in Resources */,
 				D9265A8922FBE1FA00ADE98D /* LaunchScreen.storyboard in Resources */,
+				D9E5CA6C2438E94B00936734 /* InAppSettings.bundle in Resources */,
 				D9265A8622FBE1FA00ADE98D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,16 +309,20 @@
 				D9FB9C3523D6B08600AB5634 /* UserInfoHeader.swift in Sources */,
 				D9FB9C2D23D6ABD300AB5634 /* SectionHeaderView.swift in Sources */,
 				D9FB9C3123D6AC2E00AB5634 /* BarSeparatorView.swift in Sources */,
+				D9E5CA7224399E6D00936734 /* ReviewProgressView.swift in Sources */,
 				D9265A8122FBE1F700ADE98D /* ViewController.swift in Sources */,
 				D978ABA023D6CDC80027236B /* SettingsSection.swift in Sources */,
 				D9265A7F22FBE1F700ADE98D /* AppDelegate.swift in Sources */,
+				D9FB6CBD2437092400423D3F /* ComponentView.swift in Sources */,
 				D9782F98230E72220092B5EE /* WaniKaniDataItems+More.swift in Sources */,
 				D920E38223079BA500B63D2F /* SubjectItemViewController.swift in Sources */,
 				D9FA720223176829000FE229 /* CompletionViewController.swift in Sources */,
+				D93BD0AC243AF24A002F4157 /* SetupViewController.swift in Sources */,
 				D920E37E23038B6C00B63D2F /* ReviewViewController.swift in Sources */,
 				D9605FED230002CE00D206E5 /* SubjectItem.swift in Sources */,
 				D9FB9C2F23D6AC1000AB5634 /* SizeableTextView.swift in Sources */,
 				D99E21AB23D9F525007F17C3 /* RelatedItemsView.swift in Sources */,
+				D9E5CA702438EA8300936734 /* SettingsTableViewController.swift in Sources */,
 				D9FB9C3323D6ACBF00AB5634 /* SettingsCell.swift in Sources */,
 				D9BD7FB823C3892C00C701FC /* SettingsViewController.swift in Sources */,
 			);

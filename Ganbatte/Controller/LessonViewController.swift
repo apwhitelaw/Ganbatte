@@ -27,6 +27,8 @@ class LessonViewController: EZSwipeController, EZSwipeControllerDataSource {
             vcArray.append(SubjectItemViewController(subjectItem1:self.lessonsArray1[x]))
             quizArray1.append(self.lessonsArray1[x])
         }
+        let quizVC = ReviewViewController(lessonsArray1: quizArray1)
+        vcArray.append(quizVC)
         super.init()
         
         //getAssignmentIds()

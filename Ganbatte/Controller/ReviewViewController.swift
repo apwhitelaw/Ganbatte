@@ -14,7 +14,7 @@ import BubbleTransition
 import Alamofire
 import Koloda
 
-class ReviewViewController: UIViewController, UIViewControllerTransitioningDelegate {
+class ReviewViewController: UIViewController, UIViewControllerTransitioningDelegate, CAAnimationDelegate {
     
     let lessons: Bool
     let postUrl: String
@@ -50,6 +50,11 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
     let interactiveTransition = BubbleInteractiveTransition()
     let showInfoButton = UIButton()
     
+    let rpv = ReviewProgressView()
+    let showView = UIView()
+    let gradientLayer = CAGradientLayer()
+    let swipeGradient = CAGradientLayer()
+    
     var meaning: Bool = true // false == reading, true == meaning
     
     init(reviewsArray1: [SubjectItem2]) {
@@ -72,6 +77,18 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Hide navigation bar
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Unhide navigation bar
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }	
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -85,6 +102,14 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
         
         setupInfoView()
         setupItemView()
+        
+        //let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor.wkGreen.cgColor, UIColor.black.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.25)
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        //self.view.layer.addSublayer(gradientLayer)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(showAnswer))
         view.addGestureRecognizer(tap)
@@ -147,55 +172,127 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
             make.centerX.equalTo(view.snp.centerX)
             make.centerY.equalTo(view.snp.centerY).offset(250)
         }
+        
+        showView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
+        showView.alpha = 0.5
+        view.addSubview(showView)
+        showView.snp.makeConstraints { (make) in
+            make.top.bottom.leading.equalTo(incorrectButton)
+            make.trailing.equalTo(correctButton)
+        }
+        
+        swipeGradient.frame = self.view.bounds
+        swipeGradient.startPoint = CGPoint(x: 0.0, y: 0.5)
+        swipeGradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+        //view.layer.insertSublayer(swipeGradient, at: 0)
+        view.layer.addSublayer(swipeGradient)
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(revealGradient(sender:)))
+        swipeLeft.direction = .left
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(revealGradient(sender:)))
+        swipeRight.direction = .right
+        view.addGestureRecognizer(swipeLeft)
+        view.addGestureRecognizer(swipeRight)
+    }
+    
+    @objc func revealGradient(sender: Any) {
+//        if let swipe = sender as? UISwipeGestureRecognizer {
+//            if swipe.direction == .left {
+//                swipeGradient.colors = [UIColor.clear.cgColor, UIColor.green.cgColor]
+//            } else {
+//                swipeGradient.colors = [UIColor.red.cgColor, UIColor.clear.cgColor]
+//            }
+//        }
+    }
+    
+//    var last = UITouch()
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        swipeGradient.endPoint = CGPoint(x: 1.5, y: 0.5)
+//        swipeGradient.colors = [UIColor.clear.cgColor, UIColor.green.cgColor]
+//        if let touch = touches.first {
+//            last = touch
+//        }
+//    }
+//    
+//    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        if let touch = touches.first {
+//            last = touch
+//            let x = touch.preciseLocation(in: view).x / view.frame.width
+//            print(x)
+//            swipeGradient.endPoint = CGPoint(x: x + 0.5, y: 0.5)
+//        }
+//    }
+//    
+//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+////        let endPointAnimation = CABasicAnimation(keyPath: "endPoint")
+////        endPointAnimation.toValue = CGPoint(x: 1.5, y: 0.5)
+////        let colorsAnimation = CABasicAnimation(keyPath: "colors")
+////        colorsAnimation.toValue = []
+////        swipeGradient.add(endPointAnimation, forKey: nil)
+////        swipeGradient.add(colorsAnimation, forKey: nil)
+//        
+//        swipeGradient.endPoint = CGPoint(x: 1.5, y: 0.5)
+//        swipeGradient.colors = []
+//    }
+    
+    func setGradient(mainColor: UIColor) {
+        gradientLayer.colors = [mainColor.cgColor, UIColor.black.cgColor]
     }
     
     func setupInfoView() {
-        infoView.backgroundColor = .white
-        view.addSubview(infoView)
-        infoView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.snp.topMargin)
-            make.leading.trailing.equalTo(view)
-            make.height.equalTo(70)
-        }
+//        infoView.backgroundColor = .white
+//        view.addSubview(infoView)
+//        infoView.snp.makeConstraints { (make) in
+//            make.top.equalTo(view.snp.topMargin)
+//            make.leading.trailing.equalTo(view)
+//            make.height.equalTo(70)
+//        }
+//
+//        meaningCompletedLabel.text = "M: 0"
+//        readingCompletedLabel.text = "R: 0"
+//        meaningCompletedLabel.textColor = .black
+//        readingCompletedLabel.textColor = .black
+//        meaningCompletedLabel.numberOfLines = 2
+//        readingCompletedLabel.numberOfLines = 2
+//        readingCompletedLabel.textAlignment = .right
+//        infoView.addSubview(meaningCompletedLabel)
+//        infoView.addSubview(readingCompletedLabel)
+//        meaningCompletedLabel.snp.makeConstraints { (make) in
+//            make.centerY.equalTo(infoView)
+//            make.leading.equalTo(infoView).offset(5)
+//        }
+//        readingCompletedLabel.snp.makeConstraints { (make) in
+//            make.centerY.equalTo(infoView)
+//            make.trailing.equalTo(infoView).offset(-5)
+//        }
+//
+//        if lessons == false {
+//            total = reviewsArray1.count
+//            progressLabel.text =
+//            """
+//            Reviews Remaining: \(reviewsArray1.count) / \(total)
+//            Current Review Set: 0 / 10
+//            """
+//        } else if lessons == true {
+//            total = currentReviewSet1.count
+//            progressLabel.text = "Lessons Remaining: \(currentReviewSet1.count) / \(total)"
+//
+//            readingCompletedLabel.isHidden = true
+//            meaningCompletedLabel.isHidden = true
+//        }
+//        progressLabel.numberOfLines = 2
+//        progressLabel.textAlignment = .center
+//        infoView.addSubview(progressLabel)
+//        progressLabel.snp.makeConstraints { (make) in
+//            make.centerX.equalTo(infoView)
+//            make.centerY.equalTo(infoView).offset(0)
+//        }
         
-        meaningCompletedLabel.text = "M: 0"
-        readingCompletedLabel.text = "R: 0"
-        meaningCompletedLabel.textColor = .black
-        readingCompletedLabel.textColor = .black
-        meaningCompletedLabel.numberOfLines = 2
-        readingCompletedLabel.numberOfLines = 2
-        readingCompletedLabel.textAlignment = .right
-        infoView.addSubview(meaningCompletedLabel)
-        infoView.addSubview(readingCompletedLabel)
-        meaningCompletedLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(infoView)
-            make.leading.equalTo(infoView).offset(5)
-        }
-        readingCompletedLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(infoView)
-            make.trailing.equalTo(infoView).offset(-5)
-        }
-        
-        if lessons == false {
-            total = reviewsArray1.count
-            progressLabel.text =
-            """
-            Reviews Remaining: \(reviewsArray1.count) / \(total)
-            Current Review Set: 0 / 10
-            """
-        } else if lessons == true {
-            total = currentReviewSet1.count
-            progressLabel.text = "Lessons Remaining: \(currentReviewSet1.count) / \(total)"
-            
-            readingCompletedLabel.isHidden = true
-            meaningCompletedLabel.isHidden = true
-        }
-        progressLabel.numberOfLines = 2
-        progressLabel.textAlignment = .center
-        infoView.addSubview(progressLabel)
-        progressLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(infoView)
-            make.centerY.equalTo(infoView).offset(0)
+        view.addSubview(rpv)
+        rpv.snp.makeConstraints { (make) in
+            make.centerX.equalTo(view)
+            make.top.equalTo(view.snp.topMargin).offset(0)
+            make.height.equalTo(2)
+            make.width.equalTo(view.snp.width)
         }
         
     }
@@ -240,6 +337,7 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
         answerShown = false
         meaningText = ""
         readingText = ""
+        showView.alpha = 0.5
     }
     
     
@@ -254,18 +352,37 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
             currentReviewItem1 = currentReviewSet1[0]
         } else {
             let vc = CompletionViewController(correctArray: correctArray1, incorrectArray: incorrectArray1)
-            vc.modalPresentationStyle = .fullScreen
-            present(vc, animated: true)
+            navigationController?.pushViewController(vc, animated: true)
+//            vc.modalPresentationStyle = .fullScreen
+//            present(vc, animated: true)
         }
         
         characterLabel.text = currentReviewItem1.data.characters
         
+//        switch(currentReviewItem1.object) {
+//        case "radical": view.backgroundColor = .wkBlue
+//        case "kanji": view.backgroundColor = .wkPink
+//        case "vocabulary": view.backgroundColor = .wkPurple
+//        default: view.backgroundColor = .wkGreen
+//        }
+        
+        //let animation: CABasicAnimation = CABasicAnimation(keyPath: "colors")
+        //animation.fromValue = gradientLayer.colors
+        var newColors = [UIColor.wkGreen.cgColor, UIColor.black.cgColor]
         switch(currentReviewItem1.object) {
-        case "radical": view.backgroundColor = .wkBlue
-        case "kanji": view.backgroundColor = .wkPink
-        case "vocabulary": view.backgroundColor = .wkPurple
-        default: view.backgroundColor = .wkGreen
+        case "radical": newColors[0] = UIColor.wkBlue.cgColor
+        case "kanji": newColors[0] = UIColor.wkPink.cgColor
+        case "vocabulary": newColors[0] = UIColor.wkPurple.cgColor
+        default: newColors[0] = UIColor.wkGreen.cgColor
         }
+        gradientLayer.colors = newColors
+        //animation.toValue = newColors
+        //animation.duration = 0.3
+        //animation.isRemovedOnCompletion = true
+        //animation.fillMode = CAMediaTimingFillMode.forwards
+        //animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        //animation.delegate = self
+        //self.gradientLayer.add(animation, forKey: "animateGradientColorChange")
         
         for meaning in currentReviewItem1.data.meanings {
             let text = meaning.meaning
@@ -326,6 +443,7 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
                 self.itemView.frame.origin.y -= 100
                 self.itemView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
                 self.answerLabel.alpha = 1.0
+                self.showView.alpha = 0.0
             }
             
             correctButton.isUserInteractionEnabled = true
@@ -390,7 +508,7 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
         }
         
         if !contains {
-            print("removing \(reviewsArray1[0])...")
+            print("removing \(reviewsArray1[0].id)...")
             reviewsArray1.remove(at: 0)
             print("inserting \(currentReviewItem1.id)")
             currentReviewSet1.insert(currentReviewItem1, at: 0)
@@ -458,6 +576,10 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
     }
     
     func updateLabels() {
+        rpv.completed = correctArray1.count + incorrectArray1.count
+        rpv.remaining = reviewsArray1.count
+        rpv.currentSet = currentReviewSet1.count
+        
         if lessons == false {
             progressLabel.text =
             """
@@ -475,12 +597,12 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
     
     
     @objc func presentBubble() {
-//        let controller = SubjectItemViewController(subjectItem: currentReviewItem, meaning: meaning)
-//        controller.transitioningDelegate = self
-//        controller.modalPresentationStyle = .custom
-//        controller.interactiveTransition = interactiveTransition
-//        interactiveTransition.attach(to: controller)
-//        present(controller, animated: true, completion: nil)
+        let controller = SubjectItemViewController(subjectItem1: currentReviewItem1, meaning: meaning)
+        controller.transitioningDelegate = self
+        controller.modalPresentationStyle = .custom
+        controller.interactiveTransition = interactiveTransition
+        interactiveTransition.attach(to: controller)
+        present(controller, animated: true, completion: nil)
     }
     
     // MARK: UIViewControllerTransitioningDelegate

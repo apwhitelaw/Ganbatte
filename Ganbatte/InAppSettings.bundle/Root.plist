@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Lessons</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Lesson Size (3- 10)</string>
+			<key>Key</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSSliderSpecifier</string>
+			<key>Key</key>
+			<string>slider_preference</string>
+			<key>DefaultValue</key>
+			<integer>5</integer>
+			<key>MinimumValue</key>
+			<integer>3</integer>
+			<key>MaximumValue</key>
+			<integer>10</integer>
+			<key>MinimumValueImage</key>
+			<string></string>
+			<key>MaximumValueImage</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Lesson Order</string>
+			<key>Key</key>
+			<string></string>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>Values</key>
+			<array>
+				<string>By Level (Default)</string>
+				<string>Radical, Kanji, Vocab</string>
+				<string>Radical, Vocab, Kanji</string>
+				<string>Kanji, Radical, Vocab</string>
+				<string>Kanji, Vocab, Radical</string>
+				<string>Vocab, Kanji, Radical</string>
+				<string>Vocab, Radical, Kanji</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>By Level (Default)</string>
+				<string>Radical, Kanji, Vocab</string>
+				<string>Radical, Vocab, Kanji</string>
+				<string>Kanji, Radical, Vocab</string>
+				<string>Kanji, Vocab, Radical</string>
+				<string>Vocab, Kanji, Radical</string>
+				<string>Vocab, Radical, Kanji</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Reviews</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Review Order</string>
+			<key>Key</key>
+			<string></string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Review Type</string>
+			<key>Key</key>
+			<string></string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string> Back-to-Back (Meaning/Reading)</string>
+			<key>Key</key>
+			<string></string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>API</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>API v2 Key</string>
+			<key>Key</key>
+			<string></string>
+		</dict>
+	</array>
+</dict>
+</plist>
