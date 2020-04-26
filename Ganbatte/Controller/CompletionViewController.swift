@@ -84,24 +84,37 @@ class CompletionViewController: UICollectionViewController, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 100)
+        var height: CGFloat = 20
+        switch(section) {
+        case 0: height = 100
+        case 1: height = 50
+        case 2: height = 50
+        default: height = 1000
+        }
+        return CGSize(width: collectionView.frame.width, height: height)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier, for: indexPath as IndexPath) as! SectionHeaderView
 
-            headerView.frame.size.height = 50
-            headerView.frame.size.width = view.frame.width
+            //headerView.frame.size.width = view.frame.width
             
             if indexPath.section == 0 {
+                headerView.backgroundColor = .lightGray
                 headerView.titleLabel.text = "Finished!"
+                //headerView.frame.size.height = 150
+                headerView.setupResultHeader()
+                let percent = (Double(correctArray.count) / Double(correctArray.count + incorrectArray.count)) * 100
+                headerView.percentageLabel.text = "\(Int(percent))%"
             } else if indexPath.section == 1 {
                 headerView.backgroundColor = .red
                 headerView.titleLabel.text = "Incorrect"
+                //headerView.frame.size.height = 50
             } else if indexPath.section == 2 {
                 headerView.backgroundColor = .green
                 headerView.titleLabel.text = "Correct"
+                //headerView.frame.size.height = 50
             }
 
             return headerView

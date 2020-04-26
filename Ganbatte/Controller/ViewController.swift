@@ -73,12 +73,15 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        
         DispatchQueue.global(qos: .userInteractive).async {
             if allRadicalArray.count == 0 {
                 self.loadSubjects()
             }
             self.sendRequests()
         }
+        
     }
     
     func loadSubjects() {
@@ -331,11 +334,17 @@ class ViewController: UIViewController {
         lessonView.isUserInteractionEnabled = true
         let lessonTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(beginLessons))
         lessonView.addGestureRecognizer(lessonTapRecognizer)
+        lessonView.layer.cornerRadius = 20
+        lessonView.layer.borderColor = UIColor.darkGray.cgColor
+        lessonView.layer.borderWidth = 0
         
         reviewView.backgroundColor = lessonsArray1.count > 0 ? .white : UIColor(red: 191.25/255, green: 191.25/255, blue: 191.25/255, alpha: 1.0)
         reviewView.isUserInteractionEnabled = true
         let reviewTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(beginReviews))
         reviewView.addGestureRecognizer(reviewTapRecognizer)
+        reviewView.layer.cornerRadius = 20
+        reviewView.layer.borderColor = UIColor.darkGray.cgColor
+        reviewView.layer.borderWidth = 0
         
         scroll.addSubview(lessonView)
         scroll.addSubview(reviewView)
@@ -350,7 +359,9 @@ class ViewController: UIViewController {
         reviewView.addSubview(arrow2)
         
         lessonView.snp.makeConstraints { (make) in
-            make.width.equalTo(view)
+            //make.width.equalTo(view)
+            make.leading.equalTo(view.snp.leadingMargin)
+            make.trailing.equalTo(view.snp.trailingMargin)
             make.height.equalTo(50)
             make.centerX.equalTo(scroll)
             make.centerY.equalTo(250)
@@ -362,7 +373,9 @@ class ViewController: UIViewController {
         }
         
         reviewView.snp.makeConstraints { (make) in
-            make.width.equalTo(view)
+            //make.width.equalTo(view)
+            make.leading.equalTo(view.snp.leadingMargin)
+            make.trailing.equalTo(view.snp.trailingMargin)
             make.height.equalTo(50)
             make.centerX.equalTo(scroll)
             make.centerY.equalTo(350)
@@ -392,14 +405,14 @@ class ViewController: UIViewController {
     @objc func beginLessons() {
         let vc = LessonViewController(lessonsArray1: lessonsArray1)
         vc.modalPresentationStyle = .fullScreen
-        //let navVC = UINavigationController(rootViewController: vc)
         present(vc, animated: true) {
             
         }
     }
     
     @objc func beginReviews() {
-        let vc = ReviewViewController(reviewsArray1: reviewsArray1)
+        //let vc = ReviewViewController(reviewsArray1: reviewsArray1)
+        let vc = SetupViewController(reviewsArray: reviewsArray1) //CompletionViewController(reviewsArray: allVocabArray)
 //        vc.modalPresentationStyle = .fullScreen
 //        present(vc, animated: true) {
 //
@@ -412,7 +425,9 @@ class ViewController: UIViewController {
         reviewsLabel.text = "Reviews: \(reviewsArray1.count)"
         
         lessonView.backgroundColor = lessonsArray1.count > 0 ? .white : UIColor(red: 127.5/255, green: 127.5/255, blue: 127.5/255, alpha: 1.0)
-        reviewView.backgroundColor = lessonsArray1.count > 0 ? .white : UIColor(red: 127.5/255, green: 127.5/255, blue: 127.5/255, alpha: 1.0)
+        reviewView.backgroundColor = reviewsArray1.count > 0 ? .white : UIColor(red: 127.5/255, green: 127.5/255, blue: 127.5/255, alpha: 1.0)
+        lessonView.layer.borderWidth = 2
+        reviewView.layer.borderWidth = 2
     }
     
     func sendRequests() {
@@ -486,7 +501,6 @@ class ViewController: UIViewController {
         
         for id in ids {
             if let item = allRadicalArray.first(where: {$0.id == id}) {
-                print(item, lessons)
                 if lessons == true {
                     lessonsArray1.append(item)
                 } else {
@@ -495,7 +509,6 @@ class ViewController: UIViewController {
                 continue
             }
             if let item = allKanjiArray.first(where: {$0.id == id}) {
-                print(item, lessons)
                 if lessons == true {
                     lessonsArray1.append(item)
                 } else {
@@ -504,7 +517,6 @@ class ViewController: UIViewController {
                 continue
             }
             if let item = allVocabArray.first(where: {$0.id == id}) {
-                print(item, lessons)
                 if lessons == true {
                     lessonsArray1.append(item)
                 } else {
@@ -516,37 +528,56 @@ class ViewController: UIViewController {
         
         updateLabels()
         // sort lessons: remove/edit sortLessons() function?
+        
+        sortLessons()
     }
     
     func sortLessons() {
         
-        for _ in 0...lessonsArray.count {
-            for (index,item) in lessonsArray.enumerated() {
-                if index != (lessonsArray.count - 1) {
-                    let nextItem = lessonsArray[index+1]
-                    if item.level > nextItem.level {
-                        let temp = nextItem
-                        lessonsArray[index+1] = item
-                        lessonsArray[index] = temp
-                    }
+        lessonsArray1.sort { (a, b) -> Bool in
+            if a.data.level < b.data.level {
+                return true
+            } else {
+                return false
+            }
+        }
+
+        lessonsArray1.sort { (a, b) -> Bool in
+            if a.data.level == b.data.level {
+                if a.data.lessonPosition < b.data.lessonPosition {
+                    return true
                 }
             }
+            return false
         }
         
-        for _ in 0...lessonsArray.count {
-            for (index,item) in lessonsArray.enumerated() {
-                if index != (lessonsArray.count - 1) {
-                    let nextItem = lessonsArray[index+1]
-                    if item.level == nextItem.level {
-                        if item.lessonPosition > nextItem.lessonPosition {
-                            let temp = nextItem
-                            lessonsArray[index+1] = item
-                            lessonsArray[index] = temp
-                        }
-                    }
-                }
-            }
-        }
+//        for _ in 0...lessonsArray.count {
+//            for (index,item) in lessonsArray.enumerated() {
+//                if index != (lessonsArray.count - 1) {
+//                    let nextItem = lessonsArray[index+1]
+//                    if item.level > nextItem.level {
+//                        let temp = nextItem
+//                        lessonsArray[index+1] = item
+//                        lessonsArray[index] = temp
+//                    }
+//                }
+//            }
+//        }
+//
+//        for _ in 0...lessonsArray.count {
+//            for (index,item) in lessonsArray.enumerated() {
+//                if index != (lessonsArray.count - 1) {
+//                    let nextItem = lessonsArray[index+1]
+//                    if item.level == nextItem.level {
+//                        if item.lessonPosition > nextItem.lessonPosition {
+//                            let temp = nextItem
+//                            lessonsArray[index+1] = item
+//                            lessonsArray[index] = temp
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
     
     

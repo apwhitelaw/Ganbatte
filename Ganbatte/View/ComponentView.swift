@@ -60,6 +60,12 @@ class ComponentView: UIView {
             labelArray.append(meaningLabel)
         }
         
+        if objects.count > 2 {
+            height = 100
+        } else {
+            height = 50
+        }
+        
         let itemWidth = (self.bounds.width - 20) / 3
         print(itemWidth)
         for (index,button) in buttonArray.enumerated() {

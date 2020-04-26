@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3EEB5456C08E48FE5F14CE5E /* Pods_Ganbatte.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E73CA107E1A7BCD0D72148E5 /* Pods_Ganbatte.framework */; };
+		D906A8EA243ECE8E008F2A7F /* PreviousCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906A8E9243ECE8E008F2A7F /* PreviousCollectionView.swift */; };
+		D906A8EC243EDCE3008F2A7F /* SubjectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906A8EB243EDCE3008F2A7F /* SubjectCollectionViewCell.swift */; };
 		D920E37E23038B6C00B63D2F /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D920E37D23038B6C00B63D2F /* ReviewViewController.swift */; };
 		D920E38023050B9A00B63D2F /* LessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D920E37F23050B9A00B63D2F /* LessonViewController.swift */; };
 		D920E38223079BA500B63D2F /* SubjectItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D920E38123079BA500B63D2F /* SubjectItemViewController.swift */; };
@@ -28,6 +30,7 @@
 		D9E5CA752439A68100936734 /* inbox.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E5CA732439A68100936734 /* inbox.png */; };
 		D9E5CA762439A68100936734 /* complete.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E5CA742439A68100936734 /* complete.png */; };
 		D9E5CA782439B8AD00936734 /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E5CA772439B8AD00936734 /* clock.png */; };
+		D9FA71B3243E4F9E001575B5 /* LessonProgressCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA71B2243E4F9E001575B5 /* LessonProgressCollectionView.swift */; };
 		D9FA720223176829000FE229 /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA720123176829000FE229 /* CompletionViewController.swift */; };
 		D9FA72042318A940000FE229 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA72032318A940000FE229 /* Logo.png */; };
 		D9FB6CBD2437092400423D3F /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FB6CBC2437092400423D3F /* ComponentView.swift */; };
@@ -42,6 +45,8 @@
 /* Begin PBXFileReference section */
 		1A358B957C7395F359818620 /* Pods-Ganbatte.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ganbatte.release.xcconfig"; path = "Target Support Files/Pods-Ganbatte/Pods-Ganbatte.release.xcconfig"; sourceTree = "<group>"; };
 		34F02E91E79B7D80B6EEEBB3 /* Pods-Ganbatte.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ganbatte.debug.xcconfig"; path = "Target Support Files/Pods-Ganbatte/Pods-Ganbatte.debug.xcconfig"; sourceTree = "<group>"; };
+		D906A8E9243ECE8E008F2A7F /* PreviousCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousCollectionView.swift; sourceTree = "<group>"; };
+		D906A8EB243EDCE3008F2A7F /* SubjectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectCollectionViewCell.swift; sourceTree = "<group>"; };
 		D920E37D23038B6C00B63D2F /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		D920E37F23050B9A00B63D2F /* LessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonViewController.swift; sourceTree = "<group>"; };
 		D920E38123079BA500B63D2F /* SubjectItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectItemViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +69,7 @@
 		D9E5CA732439A68100936734 /* inbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inbox.png; sourceTree = "<group>"; };
 		D9E5CA742439A68100936734 /* complete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = complete.png; sourceTree = "<group>"; };
 		D9E5CA772439B8AD00936734 /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
+		D9FA71B2243E4F9E001575B5 /* LessonProgressCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonProgressCollectionView.swift; sourceTree = "<group>"; };
 		D9FA720123176829000FE229 /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
 		D9FA72032318A940000FE229 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		D9FB6CBC2437092400423D3F /* ComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
@@ -165,6 +171,9 @@
 				D9FB9C3423D6B08600AB5634 /* UserInfoHeader.swift */,
 				D99E21AA23D9F525007F17C3 /* RelatedItemsView.swift */,
 				D9E5CA7124399E6D00936734 /* ReviewProgressView.swift */,
+				D9FA71B2243E4F9E001575B5 /* LessonProgressCollectionView.swift */,
+				D906A8E9243ECE8E008F2A7F /* PreviousCollectionView.swift */,
+				D906A8EB243EDCE3008F2A7F /* SubjectCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -305,12 +314,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9FBD05F24358C8800481542 /* Assignment.swift in Sources */,
+				D906A8EC243EDCE3008F2A7F /* SubjectCollectionViewCell.swift in Sources */,
 				D920E38023050B9A00B63D2F /* LessonViewController.swift in Sources */,
 				D9FB9C3523D6B08600AB5634 /* UserInfoHeader.swift in Sources */,
 				D9FB9C2D23D6ABD300AB5634 /* SectionHeaderView.swift in Sources */,
 				D9FB9C3123D6AC2E00AB5634 /* BarSeparatorView.swift in Sources */,
 				D9E5CA7224399E6D00936734 /* ReviewProgressView.swift in Sources */,
 				D9265A8122FBE1F700ADE98D /* ViewController.swift in Sources */,
+				D906A8EA243ECE8E008F2A7F /* PreviousCollectionView.swift in Sources */,
 				D978ABA023D6CDC80027236B /* SettingsSection.swift in Sources */,
 				D9265A7F22FBE1F700ADE98D /* AppDelegate.swift in Sources */,
 				D9FB6CBD2437092400423D3F /* ComponentView.swift in Sources */,
@@ -324,6 +335,7 @@
 				D99E21AB23D9F525007F17C3 /* RelatedItemsView.swift in Sources */,
 				D9E5CA702438EA8300936734 /* SettingsTableViewController.swift in Sources */,
 				D9FB9C3323D6ACBF00AB5634 /* SettingsCell.swift in Sources */,
+				D9FA71B3243E4F9E001575B5 /* LessonProgressCollectionView.swift in Sources */,
 				D9BD7FB823C3892C00C701FC /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

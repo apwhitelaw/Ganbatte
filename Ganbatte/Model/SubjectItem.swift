@@ -121,7 +121,7 @@ struct ContextSentence: Codable {
 struct PronunciationAudio: Codable {
     var url: String
     var metadata: PronounciationAudioMetaData
-    var content_type: String?
+    var contentType: String?
 }
 
 struct PronounciationAudioMetaData: Codable {

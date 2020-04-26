@@ -335,7 +335,7 @@ class SubjectItemViewController: UIViewController {
         ja = editableText.range(of: "<ja>")
         read = editableText.range(of: "<reading>")
         mean = editableText.range(of: "<meaning>")
-        while x.length != 0 || y.length != 0 || z.length != 0 || ja.length != 0 {
+        while x.length != 0 || y.length != 0 || z.length != 0 || ja.length != 0 || read.length != 0 || mean.length != 0 {
             if x.length != 0 {
                 x = editableText.range(of: "<radical>")
                 var x2 = editableText.range(of: "</radical>")

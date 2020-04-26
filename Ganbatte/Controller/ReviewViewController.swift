@@ -13,6 +13,7 @@ import LTMorphingLabel
 import BubbleTransition
 import Alamofire
 import Koloda
+import AVFoundation
 
 class ReviewViewController: UIViewController, UIViewControllerTransitioningDelegate, CAAnimationDelegate {
     
@@ -54,6 +55,9 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
     let showView = UIView()
     let gradientLayer = CAGradientLayer()
     let swipeGradient = CAGradientLayer()
+    
+    var readingAudio: AVAudioPlayer?
+    let playReadingButton: UIButton = UIButton(type: .roundedRect)
     
     var meaning: Bool = true // false == reading, true == meaning
     
@@ -184,6 +188,7 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
         swipeGradient.frame = self.view.bounds
         swipeGradient.startPoint = CGPoint(x: 0.0, y: 0.5)
         swipeGradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+        swipeGradient.locations = [1.0, 1.0]
         //view.layer.insertSublayer(swipeGradient, at: 0)
         view.layer.addSublayer(swipeGradient)
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(revealGradient(sender:)))
@@ -192,36 +197,65 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
         swipeRight.direction = .right
         view.addGestureRecognizer(swipeLeft)
         view.addGestureRecognizer(swipeRight)
+        
+        view.addSubview(playReadingButton)
+        playReadingButton.setTitle("Play", for: .normal)
+        playReadingButton.addTarget(self, action: #selector(playAudio), for: .touchUpInside)
+        playReadingButton.snp.makeConstraints { (make) in
+            make.trailing.equalToSuperview().offset(-10)
+            make.bottom.equalTo(correctButton.snp.top).offset(-10)
+        }
+    }
+    
+    @objc func playAudio() {
+        if let audio = currentReviewItem1.data.pronunciationAudios {
+            for sound in audio {
+                if sound.contentType == "audio/mpeg" {
+                    if let url = URL(string: sound.url) {
+                        do {
+                            let data = try Data(contentsOf: url)
+                            readingAudio = try AVAudioPlayer(data: data)
+                            break
+                        }
+                        catch {
+                            print(error.localizedDescription)
+                            presentAlert(target: self, title: "Could not play audio.", message: "The audio failed to play.", defaultAction: "OK", alternateAction: "Cancel")
+                        }
+                    }
+                }
+            }
+        }
+        readingAudio?.prepareToPlay()
+        readingAudio?.play()
     }
     
     @objc func revealGradient(sender: Any) {
-//        if let swipe = sender as? UISwipeGestureRecognizer {
-//            if swipe.direction == .left {
-//                swipeGradient.colors = [UIColor.clear.cgColor, UIColor.green.cgColor]
-//            } else {
-//                swipeGradient.colors = [UIColor.red.cgColor, UIColor.clear.cgColor]
-//            }
-//        }
+        if let swipe = sender as? UISwipeGestureRecognizer {
+            if swipe.direction == .left {
+                swipeGradient.colors = [UIColor.clear.cgColor, UIColor.green.cgColor]
+            } else {
+                swipeGradient.colors = [UIColor.red.cgColor, UIColor.clear.cgColor]
+            }
+        }
     }
     
 //    var last = UITouch()
 //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        swipeGradient.endPoint = CGPoint(x: 1.5, y: 0.5)
 //        swipeGradient.colors = [UIColor.clear.cgColor, UIColor.green.cgColor]
 //        if let touch = touches.first {
 //            last = touch
 //        }
 //    }
-//    
+//
 //    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        if let touch = touches.first {
+//        for touch in touches {
 //            last = touch
-//            let x = touch.preciseLocation(in: view).x / view.frame.width
+//            let x = Float(touch.preciseLocation(in: view).x / view.frame.width)
 //            print(x)
-//            swipeGradient.endPoint = CGPoint(x: x + 0.5, y: 0.5)
+//            swipeGradient.locations = [NSNumber(value: -(x - 1.0)), 1.0]
 //        }
 //    }
-//    
+//
 //    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 ////        let endPointAnimation = CABasicAnimation(keyPath: "endPoint")
 ////        endPointAnimation.toValue = CGPoint(x: 1.5, y: 0.5)
@@ -229,8 +263,7 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
 ////        colorsAnimation.toValue = []
 ////        swipeGradient.add(endPointAnimation, forKey: nil)
 ////        swipeGradient.add(colorsAnimation, forKey: nil)
-//        
-//        swipeGradient.endPoint = CGPoint(x: 1.5, y: 0.5)
+//        swipeGradient.locations = [1.0, 1.0]
 //        swipeGradient.colors = []
 //    }
     
@@ -338,6 +371,7 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
         meaningText = ""
         readingText = ""
         showView.alpha = 0.5
+        readingAudio = AVAudioPlayer()
     }
     
     
@@ -432,6 +466,12 @@ class ReviewViewController: UIViewController, UIViewControllerTransitioningDeleg
         if currentReviewItem1.incorrectReading > 0 {
             readingCompletedLabel.textColor = .red
             readingCompletedLabel.text = "R: \(currentReviewItem1.incorrectReading)"
+        }
+        
+        if let audios = currentReviewItem1.data.pronunciationAudios {
+            playReadingButton.isHidden = false
+        } else {
+            playReadingButton.isHidden = true
         }
         
         updateLabels()

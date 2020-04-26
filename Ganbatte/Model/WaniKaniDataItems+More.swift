@@ -97,3 +97,10 @@ extension String {
         return ceil(boundingBox.width)
     }
 }
+
+func presentAlert(target: UIViewController, title: String, message: String, defaultAction: String, alternateAction: String) {
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: defaultAction, style: .default, handler: nil))
+    alert.addAction(UIAlertAction(title: alternateAction, style: .cancel, handler: nil))
+    target.present(alert, animated: true)
+}
